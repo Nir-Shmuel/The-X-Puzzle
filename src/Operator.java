@@ -3,6 +3,8 @@
  */
 public interface Operator {
     State createNextState(State state) throws RuntimeException;
+
     void printOperator();
+
     String getMove();
 }

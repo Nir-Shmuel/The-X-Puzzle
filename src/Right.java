@@ -25,11 +25,10 @@ public class Right extends BoardOperator {
             //move 0 right
             newStateBoard[emptyRowIdx][emptyColIdx] = newStateBoard[emptyRowIdx][emptyColIdx + 1];
             newStateBoard[emptyRowIdx][emptyColIdx + 1] = 0;
+            newState.setEmptyIndexes(emptyRowIdx, emptyColIdx + 1);
             return newState;
         } else {
             throw new TypeMismatchException("The State is not a BoardState!");
         }
-
     }
-
 }

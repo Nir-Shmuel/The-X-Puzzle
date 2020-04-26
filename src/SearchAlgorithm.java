@@ -1,6 +1,5 @@
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 public abstract class SearchAlgorithm {
     protected Collection<Node> close;
@@ -16,8 +15,8 @@ public abstract class SearchAlgorithm {
 
     //check if the state is in the collection
     public boolean findState(Node s, Collection<Node> collection) {
-        for(Node n: collection){
-            if(n.equals(s))
+        for (Node n : collection) {
+            if (n.equals(s))
                 return true;
         }
         return false;
@@ -30,11 +29,10 @@ public abstract class SearchAlgorithm {
         StringBuilder builder = new StringBuilder();
         Node parent = node.getParent();
         while (parent != null) {
-            builder.append(node.getOperator().getMove());
+            builder.insert(0, node.getOperator().getMove());
             node = parent;
             parent = node.getParent();
         }
         return builder.toString();
     }
-
 }

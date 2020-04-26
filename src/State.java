@@ -3,6 +3,6 @@
  */
 public interface State {
     State copyState();
-    void printState();
 
+    void printState();
 }

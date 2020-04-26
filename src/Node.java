@@ -1,11 +1,7 @@
-import java.util.Arrays;
-import java.util.Objects;
-
 public class Node {
     private Node parent;
     private State state;
     private Operator operator;
-
 
     public Node(State state, Operator operator, Node parent) {
         this.state = state;
@@ -38,14 +34,16 @@ public class Node {
     }
 
     public void printNode() {
-        System.out.println("parent: " + this.parent);
-        System.out.println("operator: ");
-        if(this.operator != null){
+        if (this.parent != null)
+            System.out.println("parent: " + this.parent);
+        if (this.operator != null) {
+            System.out.println("operator: ");
             this.operator.printOperator();
         }
         System.out.println("state:");
         this.state.printState();
     }
+
     //compare two nodes with their
     @Override
     public boolean equals(Object o) {
@@ -54,5 +52,4 @@ public class Node {
         Node node = (Node) o;
         return this.state.equals(node.state);
     }
-
 }

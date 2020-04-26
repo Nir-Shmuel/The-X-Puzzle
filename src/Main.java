@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        final String filePath = "input2.txt";
+        final String filePath = "input.txt";
         int algId;
         int n;
         int emptyRowIdx = 0;
@@ -14,8 +14,9 @@ public class Main {
             Scanner scanner = new Scanner(new FileInputStream(filePath));
             algId = Integer.parseInt(scanner.nextLine());
             System.out.println(algId);
-            switch (algId){
-                case 2: searchAlgorithm = new BFS();
+            switch (algId) {
+                case 2:
+                    searchAlgorithm = new BFS();
                     break;
                 // continue
             }
@@ -36,16 +37,16 @@ public class Main {
                 }
             }
             goalBoard[n - 1][n - 1] = 0;
-            Node init = new Node(new BoardState(initBoard,emptyRowIdx, emptyColidx), null, null);
-            Node goal = new Node(new BoardState(goalBoard,n-1,n-1), null, null);
+            Node init = new Node(new BoardState(initBoard, emptyRowIdx, emptyColidx), null, null);
+            Node goal = new Node(new BoardState(goalBoard, n - 1, n - 1), null, null);
             init.printNode();
             goal.printNode();
             long start = System.nanoTime();
-            if(searchAlgorithm!=null)
-                System.out.println(searchAlgorithm.search(init,goal));
+            if (searchAlgorithm != null)
+                System.out.println(searchAlgorithm.search(init, goal));
             else
                 System.out.println("Wrong input!");
-            System.out.println(System.nanoTime()-start);
+            System.out.println(System.nanoTime() - start);
         } catch (
                 FileNotFoundException e) {
             System.out.println("File not found. Please try again.");

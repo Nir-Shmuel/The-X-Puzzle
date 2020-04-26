@@ -1,13 +1,9 @@
 import java.util.Arrays;
 
-/**
- * Created by Uri on 26/04/2020
- */
 public class BoardState implements State {
     private int[][] board;
     private int emptyRowIdx;
     private int emptyColIdx;
-
 
     public BoardState(int[][] board, int emptyRowIdx, int emptyColIdx) {
         this.board = board;
@@ -37,6 +33,11 @@ public class BoardState implements State {
         return emptyColIdx;
     }
 
+    protected void setEmptyIndexes(int emptyRowIdx, int emptyColIdx) {
+        this.emptyRowIdx = emptyRowIdx;
+        this.emptyColIdx = emptyColIdx;
+    }
+
     //compare two states by their board
     @Override
     public boolean equals(Object o) {
@@ -47,14 +48,6 @@ public class BoardState implements State {
             return false;
         }
         BoardState boardState = (BoardState) o;
-//        int n=board.length;
-//        for(int i=0;i<n;i++){
-//            for(int j=0; j<n; j++){
-//                if(board[i][j] != boardState.board[i][j])
-//                    return false;
-//            }
-//        }
-//        return true;
         return this.hashCode() == boardState.hashCode();
     }
 
@@ -76,6 +69,4 @@ public class BoardState implements State {
             System.out.println(Arrays.toString(row));
         }
     }
-
-
 }

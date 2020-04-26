@@ -14,10 +14,6 @@ public abstract class BoardOperator implements Operator {
         return String.valueOf(move);
     }
 
-    public char getDirection() {
-        return move;
-    }
-
     protected BoardState getCurrentState() {
         return currentState;
     }

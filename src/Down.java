@@ -25,13 +25,10 @@ public class Down extends BoardOperator {
             //move 0 down
             newStateBoard[emptyRowIdx][emptyColIdx] = newStateBoard[emptyRowIdx + 1][emptyColIdx];
             newStateBoard[emptyRowIdx + 1][emptyColIdx] = 0;
+            newState.setEmptyIndexes(emptyRowIdx + 1, emptyColIdx);
             return newState;
         } else {
             throw new TypeMismatchException("The State is not a BoardState!");
         }
-
     }
-
-
-
 }
