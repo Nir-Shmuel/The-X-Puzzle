@@ -1,6 +1,5 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -19,22 +18,22 @@ public class Main {
             n = Integer.parseInt(scanner.nextLine());
             System.out.println(n);
             scanner.useDelimiter("-");
-            int[][] initState = new int[n][n];
-            int[][] goalState = new int[n][n];
+            int[][] initBoard = new int[n][n];
+            int[][] goalBoard = new int[n][n];
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    initState[i][j] = scanner.nextInt();
-                    if (initState[i][j] == 0) {
+                    initBoard[i][j] = scanner.nextInt();
+                    if (initBoard[i][j] == 0) {
                         emptyRowIdx = i;
                         emptyColidx = j;
                     }
-                    goalState[i][j] = i * n + j + 1;
+                    goalBoard[i][j] = i * n + j + 1;
 
                 }
             }
-            goalState[n - 1][n - 1] = 0;
-            Node init = new Node(initState, null, null, emptyRowIdx, emptyColidx);
-            Node goal = new Node(goalState, null, null, n - 1, n - 1);
+            goalBoard[n - 1][n - 1] = 0;
+            Node init = new Node(new BoardState(initBoard,emptyRowIdx, emptyColidx), null, null);
+            Node goal = new Node(new BoardState(goalBoard,n-1,n-1), null, null);
             init.printNode();
             goal.printNode();
         } catch (

@@ -10,20 +10,21 @@ public class BFS extends SearchAlgorithm {
 
     @Override
     public Set<Node> expand(Node node) {
-        HashSet<Node> successors = new HashSet<>();
-        Node up = node.createUp();
-        if (up != null)
-            successors.add(up);
-        Node down = node.createDown();
-        if (down != null)
-            successors.add(down);
-        Node right = node.createRight();
-        if (right != null)
-            successors.add(right);
-        Node left = node.createLeft();
-        if (left != null)
-            successors.add(left);
-        return successors;
+//        HashSet<Node> successors = new HashSet<>();
+//        Node up = node.createUp();
+//        if (up != null)
+//            successors.add(up);
+//        Node down = node.createDown();
+//        if (down != null)
+//            successors.add(down);
+//        Node right = node.createRight();
+//        if (right != null)
+//            successors.add(right);
+//        Node left = node.createLeft();
+//        if (left != null)
+//            successors.add(left);
+//        return successors;
+        return null;
     }
 
     @Override
