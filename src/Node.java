@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Node {
     private Node parent;
@@ -36,7 +37,6 @@ public class Node {
         this.state = state;
     }
 
-
     public void printNode() {
         System.out.println("parent: " + this.parent);
         System.out.println("operator: ");
@@ -45,6 +45,14 @@ public class Node {
         }
         System.out.println("state:");
         this.state.printState();
-
     }
+    //compare two nodes with their
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Node node = (Node) o;
+        return this.state.equals(node.state);
+    }
+
 }

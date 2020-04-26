@@ -3,14 +3,19 @@
  */
 public abstract class BoardOperator implements Operator {
     private BoardState currentState;
-    private char direction;
+    private char move;
 
     public BoardOperator(char direction) {
-        this.direction = direction;
+        this.move = direction;
+    }
+
+    @Override
+    public String getMove() {
+        return String.valueOf(move);
     }
 
     public char getDirection() {
-        return direction;
+        return move;
     }
 
     protected BoardState getCurrentState() {
@@ -23,6 +28,6 @@ public abstract class BoardOperator implements Operator {
 
     @Override
     public void printOperator() {
-        System.out.println(this.direction);
+        System.out.println(this.move);
     }
 }

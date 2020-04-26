@@ -1,34 +1,56 @@
-import com.sun.jmx.remote.internal.ArrayQueue;
-
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class BFS extends SearchAlgorithm {
+    private Queue<Node> open;
+
     public BFS() {
-        super(new ArrayDeque<>(), new HashSet<>());
+        super(new HashSet<>(), new Operator[]{new Down(), new Up(), new Left(), new Right()});
+//        super(new HashSet<>(), new Operator[]{new Up(), new Down(), new Left(), new Right()});
+        this.open = new LinkedList<>();
     }
 
     @Override
-    public Set<Node> expand(Node node) {
-//        HashSet<Node> successors = new HashSet<>();
-//        Node up = node.createUp();
-//        if (up != null)
-//            successors.add(up);
-//        Node down = node.createDown();
-//        if (down != null)
-//            successors.add(down);
-//        Node right = node.createRight();
-//        if (right != null)
-//            successors.add(right);
-//        Node left = node.createLeft();
-//        if (left != null)
-//            successors.add(left);
-//        return successors;
-        return null;
+    public List<Node> expand(Node node) {
+        List<Node> successors = new ArrayList<>();
+        for (int i = 0; i < this.operators.length; i++) {
+            State currentState = node.getState();
+            State createdState = this.operators[i].createNextState(currentState);
+            if (createdState != null) {
+                Node n = new Node(createdState, this.operators[i], node);
+                successors.add(n);
+            }
+        }
+        return successors;
     }
 
     @Override
     public String search(Node init, Node goal) {
-        return null;
+        int n_nodes = 0;
+        this.open.clear();
+        this.close.clear();
+        this.open.add(init);
+        while (!open.isEmpty()) {
+            Node nextNode = open.poll();
+            if(nextNode.equals(goal)){
+                System.out.println("nodes:" + n_nodes);
+                return path(nextNode);
+            }
+            this.close.add(nextNode);
+            List<Node> expand = expand(nextNode);
+            for (Node s : expand) {
+                n_nodes++;
+                if (!findState(s, this.close) && !findState(s, this.open)) {
+                    if (s.equals(goal)) {
+                        System.out.println("nodes:" + n_nodes);
+                        return path(s);
+                    }
+                    this.open.add(s);
+                }
+            }
+        }
+        System.out.println("nodes:" + n_nodes);
+        return "Did not find solution";
     }
+
 }

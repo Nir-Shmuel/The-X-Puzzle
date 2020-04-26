@@ -47,6 +47,14 @@ public class BoardState implements State {
             return false;
         }
         BoardState boardState = (BoardState) o;
+//        int n=board.length;
+//        for(int i=0;i<n;i++){
+//            for(int j=0; j<n; j++){
+//                if(board[i][j] != boardState.board[i][j])
+//                    return false;
+//            }
+//        }
+//        return true;
         return this.hashCode() == boardState.hashCode();
     }
 
