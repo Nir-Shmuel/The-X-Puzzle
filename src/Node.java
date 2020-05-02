@@ -1,35 +1,48 @@
-public class Node {
-    private Node parent;
-    private State state;
-    private Operator operator;
+public class Node<T extends State> {
+    private Node<T> parent;
+    private T state;
+    private Operator<T> operator;
+    private int depth;
 
-    public Node(State state, Operator operator, Node parent) {
+    public Node(T state, Operator<T> operator, Node<T> parent, int depth) {
+        this.parent = parent;
+        this.state = state;
+        this.operator = operator;
+        this.depth = depth;
+    }
+
+    public int getDepth() {
+        return depth;
+    }
+
+    public Node(T state, Operator<T> operator, Node<T> parent) {
         this.state = state;
         this.operator = operator;
         this.parent = parent;
+        this.depth = 0;
     }
 
-    public Operator getOperator() {
+    public Operator<T> getOperator() {
         return operator;
     }
 
-    public void setOperator(Operator operator) {
+    public void setOperator(Operator<T> operator) {
         this.operator = operator;
     }
 
-    public State getState() {
+    public T getState() {
         return state;
     }
 
-    public Node getParent() {
+    public Node<T> getParent() {
         return parent;
     }
 
-    public void setParent(Node parent) {
+    public void setParent(Node<T> parent) {
         this.parent = parent;
     }
 
-    public void setState(State state) {
+    public void setState(T state) {
         this.state = state;
     }
 
@@ -49,7 +62,7 @@ public class Node {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Node node = (Node) o;
+        Node<T> node = (Node<T>) o;
         return this.state.equals(node.state);
     }
 }

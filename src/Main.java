@@ -9,14 +9,23 @@ public class Main {
         int n;
         int emptyRowIdx = 0;
         int emptyColidx = 0;
-        SearchAlgorithm searchAlgorithm = null;
+        BoardOperator[] operators = new BoardOperator[]{new Up(), new Down(), new Left(), new Right()};
+        SearchAlgorithm<BoardState> searchAlgorithm = null;
         try {
             Scanner scanner = new Scanner(new FileInputStream(filePath));
             algId = Integer.parseInt(scanner.nextLine());
             System.out.println(algId);
+
             switch (algId) {
+                case 1:
+                    searchAlgorithm = new IDS<>(operators, 100);
+                    break;
                 case 2:
-                    searchAlgorithm = new BFS();
+                    searchAlgorithm = new BFS<>(operators);
+                    break;
+                case 3:
+                    HeuristicFunction<BoardState> heuristicFunction= new ManhattanDistanceHeuristic();
+                    searchAlgorithm= new AStar<>(operators, heuristicFunction);
                     break;
                 // continue
             }
@@ -37,8 +46,8 @@ public class Main {
                 }
             }
             goalBoard[n - 1][n - 1] = 0;
-            Node init = new Node(new BoardState(initBoard, emptyRowIdx, emptyColidx), null, null);
-            Node goal = new Node(new BoardState(goalBoard, n - 1, n - 1), null, null);
+            Node<BoardState> init = new Node<>(new BoardState(initBoard, emptyRowIdx, emptyColidx), null, null);
+            Node<BoardState> goal = new Node<>(new BoardState(goalBoard, n - 1, n - 1), null, null);
             init.printNode();
             goal.printNode();
             long start = System.nanoTime();

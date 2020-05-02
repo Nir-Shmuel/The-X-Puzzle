@@ -1,7 +1,7 @@
 /**
  * Created by Uri on 26/04/2020
  */
-public abstract class BoardOperator implements Operator {
+public abstract class BoardOperator implements Operator<BoardState> {
     private BoardState currentState;
     private char move;
 

@@ -1,53 +1,40 @@
 import java.util.*;
 
-public class BFS extends SearchAlgorithm {
-    private Queue<Node> open;
+public class BFS<T extends State> extends SearchAlgorithm<T> {
+    private Queue<Node<T>> open;
 
-    public BFS() {
-        super(new HashSet<>(), new Operator[]{new Down(), new Up(), new Left(), new Right()});
+    public BFS(Operator<T>[] operators) {
+        super(operators);
         this.open = new LinkedList<>();
     }
 
     @Override
-    public List<Node> expand(Node node) {
-        List<Node> successors = new ArrayList<>();
+    public void successors(Node<T> node) {
         for (int i = 0; i < this.operators.length; i++) {
-            State currentState = node.getState();
-            State createdState = this.operators[i].createNextState(currentState);
+            T currentState = node.getState();
+            T createdState = this.operators[i].createNextState(currentState);
             if (createdState != null) {
-                Node n = new Node(createdState, this.operators[i], node);
-                successors.add(n);
+                Node<T> n = new Node<T>(createdState, this.operators[i], node);
+                this.open.add(n);
             }
         }
-        return successors;
     }
 
     @Override
-    public String search(Node init, Node goal) {
-//        int n_nodes = 0;
+    public String search(Node<T> init, Node<T> goal) {
         this.open.clear();
         this.close.clear();
         this.open.add(init);
         while (!open.isEmpty()) {
-            Node nextNode = open.poll();
-            if (nextNode.equals(goal)) {
-//                System.out.println("nodes:" + n_nodes);
-                return path(nextNode);
-            }
-            this.close.add(nextNode);
-            for (Node s : expand(nextNode)) {
-                if (!findState(s, this.close) && !findState(s, this.open)) {
-//                    n_nodes++;
-                    if (s.equals(goal)) {
-//                        System.out.println("nodes:" + n_nodes);
-                        return path(s);
-                    }
-                    this.open.add(s);
-                }
+            Node<T> nextNode = open.poll();
+            if (!this.close.contains(nextNode) && !this.open.contains(nextNode)) {
+                if (nextNode.equals(goal))
+                    return path(nextNode);
+                this.close.add(nextNode);
+                this.successors(nextNode);
             }
         }
-//        System.out.println("nodes:" + n_nodes);
-        return "Did not find solution";
+        return this.didNotFindSolution;
     }
 
 }
