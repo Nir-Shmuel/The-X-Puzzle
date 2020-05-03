@@ -27,6 +27,9 @@ public class Main {
                     HeuristicFunction<BoardState> heuristicFunction= new ManhattanDistanceHeuristic();
                     searchAlgorithm= new AStar<>(operators, heuristicFunction);
                     break;
+
+                    default:
+                        break;
                 // continue
             }
             n = Integer.parseInt(scanner.nextLine());
