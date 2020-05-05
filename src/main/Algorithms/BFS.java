@@ -1,4 +1,11 @@
-import java.util.*;
+package main.Algorithms;
+
+import main.Node;
+import main.Operators.Operator;
+import main.State.State;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class BFS<T extends State> extends SearchAlgorithm<T> {
     private Queue<Node<T>> open;
@@ -8,6 +15,9 @@ public class BFS<T extends State> extends SearchAlgorithm<T> {
         this.open = new LinkedList<>();
     }
 
+    /*
+     * Add possible moves to open queue, according to the available operators.
+     * */
     @Override
     public void successors(Node<T> node) {
         for (int i = 0; i < this.operators.length; i++) {
@@ -27,6 +37,7 @@ public class BFS<T extends State> extends SearchAlgorithm<T> {
         this.open.add(init);
         while (!open.isEmpty()) {
             Node<T> nextNode = open.poll();
+            // Double duplicate pruning the graph, by skipping states that the algorithm visited.
             if (!this.close.contains(nextNode) && !this.open.contains(nextNode)) {
                 if (nextNode.equals(goal))
                     return path(nextNode);

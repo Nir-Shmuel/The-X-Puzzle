@@ -1,10 +1,16 @@
+package main.Operators;
+
+import main.State.BoardState;
+
 public class Left extends BoardOperator {
 
     public Left() {
         super('L');
     }
 
-    //try to create the next State after moving the empty cell right, if fails return null
+    /*
+     * Try to create the next main.State.State after moving the empty cell right, if fails return null.
+     */
     @Override
     public BoardState createNextState(BoardState state) {
         this.setCurrentState(state);
@@ -16,7 +22,7 @@ public class Left extends BoardOperator {
         }
         BoardState newState = (BoardState) this.getCurrentState().copyState();
         int[][] newStateBoard = newState.getBoard();
-        //move 0 right
+        // Move 0 right.
         newStateBoard[emptyRowIdx][emptyColIdx] = newStateBoard[emptyRowIdx][emptyColIdx + 1];
         newStateBoard[emptyRowIdx][emptyColIdx + 1] = 0;
         newState.setEmptyIndexes(emptyRowIdx, emptyColIdx + 1);

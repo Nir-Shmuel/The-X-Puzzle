@@ -1,3 +1,5 @@
+package main.State;
+
 import java.util.Arrays;
 
 public class BoardState implements State {
@@ -11,7 +13,9 @@ public class BoardState implements State {
         this.emptyColIdx = emptyColIdx;
     }
 
-    //deep copy of the node's state
+    /*
+     * Deep copy of the node's state
+     */
     public State copyState() {
         int n = board.length;
         int[][] newBoard = new int[n][n];
@@ -21,24 +25,26 @@ public class BoardState implements State {
         return new BoardState(newBoard, this.emptyRowIdx, this.emptyColIdx);
     }
 
-    protected int[][] getBoard() {
+    public int[][] getBoard() {
         return board;
     }
 
-    protected int getEmptyRowIdx() {
+    public int getEmptyRowIdx() {
         return emptyRowIdx;
     }
 
-    protected int getEmptyColIdx() {
+    public int getEmptyColIdx() {
         return emptyColIdx;
     }
 
-    protected void setEmptyIndexes(int emptyRowIdx, int emptyColIdx) {
+    public void setEmptyIndexes(int emptyRowIdx, int emptyColIdx) {
         this.emptyRowIdx = emptyRowIdx;
         this.emptyColIdx = emptyColIdx;
     }
 
-    //compare two states by their board
+    /*
+     * Compare two states by their board.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -51,7 +57,9 @@ public class BoardState implements State {
         return this.hashCode() == boardState.hashCode();
     }
 
-    //create hashcode for each node, which depends on the node's state
+    /*
+     * Create hashcode for each node, which depends on the node's state.
+     */
     @Override
     public int hashCode() {
         StringBuilder builder = new StringBuilder();

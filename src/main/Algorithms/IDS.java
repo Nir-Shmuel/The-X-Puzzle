@@ -1,3 +1,9 @@
+package main.Algorithms;
+
+import main.Node;
+import main.Operators.Operator;
+import main.State.State;
+
 public class IDS<T extends State> extends SearchAlgorithm<T> {
     private DFS_L<T> dfs_l;
     private int maxDepth;
@@ -7,11 +13,17 @@ public class IDS<T extends State> extends SearchAlgorithm<T> {
         this.maxDepth = maxDepth;
     }
 
+    /*
+     * Use the main.Algorithms.DFS_L successors method
+     */
     @Override
     public void successors(Node<T> node) {
         this.dfs_l.successors(node);
     }
 
+    /*
+     * Call main.Algorithms.DFS_L for each limit in range: [0 : maxDepth)
+     */
     @Override
     public String search(Node<T> init, Node<T> goal) {
         String result;

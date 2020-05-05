@@ -1,4 +1,10 @@
-import java.util.*;
+package main.Algorithms;
+
+import main.Node;
+import main.Operators.Operator;
+import main.State.State;
+
+import java.util.Stack;
 
 public class DFS_L<T extends State> extends SearchAlgorithm<T> {
     private Stack<Node<T>> open;
@@ -10,9 +16,11 @@ public class DFS_L<T extends State> extends SearchAlgorithm<T> {
         this.limit = limit;
     }
 
+    /*
+     * Push to stack. main.Operators order is less priority first.
+     */
     @Override
     public void successors(Node<T> node) {
-        // push to stack: less priority first
         for (int i = this.operators.length - 1; i >= 0; i--) {
             T currentState = node.getState();
             T createdState = this.operators[i].createNextState(currentState);
@@ -30,9 +38,10 @@ public class DFS_L<T extends State> extends SearchAlgorithm<T> {
         this.open.push(init);
         while (!this.open.isEmpty()) {
             Node<T> v = this.open.pop();
+            // Double duplicate pruning the graph, by skipping states that the algorithm visited.
             if (!this.close.contains(v) && !this.open.contains(v)) {
                 if (v.equals(goal))
-                    return this.path(v) + " depth="+ v.getDepth();
+                    return this.path(v);
                 this.close.add(v);
                 if (v.getDepth() < this.limit)
                     this.successors(v);

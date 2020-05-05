@@ -1,5 +1,10 @@
+package main.Algorithms;
+
+import main.Node;
+import main.Operators.Operator;
+import main.State.State;
+
 import java.util.PriorityQueue;
-import java.util.Queue;
 
 public class AStar<T extends State> extends SearchAlgorithm<T> {
     private PriorityQueue<Node<T>> open;
@@ -10,13 +15,17 @@ public class AStar<T extends State> extends SearchAlgorithm<T> {
         this.hFunc = heuristic;
     }
 
+    /*
+     * Add possible moves to open priority queue, according to the available operators.
+     * If open already contains the same state, it will be updated to the minimum cost.
+     * */
     @Override
     public void successors(Node<T> node) {
         for (int i = 0; i < this.operators.length; i++) {
             T currentState = node.getState();
             T createdState = this.operators[i].createNextState(currentState);
             if (createdState != null) {
-                Node<T> newNode = new Node<>(createdState, this.operators[i], node);
+                Node<T> newNode = new Node<>(createdState, this.operators[i], node, node.getDepth() + 1);
                 if (open.contains(newNode)) {
                     open.forEach((element) -> {
                         if (element.equals(newNode) && element.getDepth() > newNode.getDepth()) {
@@ -43,6 +52,7 @@ public class AStar<T extends State> extends SearchAlgorithm<T> {
         this.open.add(init);
         while (!open.isEmpty()) {
             Node<T> currentNode = open.poll();
+            // Duplicate pruning the graph, by skipping states that the algorithm visited.
             if (close.contains(currentNode)) {
                 continue;
             }

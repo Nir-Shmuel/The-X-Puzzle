@@ -1,6 +1,7 @@
-/**
- * Created by Uri on 26/04/2020
- */
+package main.Operators;
+
+import main.State.BoardState;
+
 public abstract class BoardOperator implements Operator<BoardState> {
     private BoardState currentState;
     private char move;

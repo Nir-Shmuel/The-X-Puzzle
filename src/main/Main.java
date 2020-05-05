@@ -1,21 +1,31 @@
+package main;
+
+import main.Algorithms.*;
+import main.Operators.*;
+import main.State.BoardState;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        final String filePath = "input.txt";
+        final String srcFile = "input.txt";
+        final String destFile = "output.txt";
         int algId;
         int n;
         int emptyRowIdx = 0;
         int emptyColidx = 0;
-        BoardOperator[] operators = new BoardOperator[]{new Up(), new Down(), new Left(), new Right()};
-        SearchAlgorithm<BoardState> searchAlgorithm = null;
-        try {
-            Scanner scanner = new Scanner(new FileInputStream(filePath));
-            algId = Integer.parseInt(scanner.nextLine());
-            System.out.println(algId);
 
+        SearchAlgorithm<BoardState> searchAlgorithm = null;
+        // The operators, organized by priority.
+        BoardOperator[] operators = new BoardOperator[]{new Up(), new Down(), new Left(), new Right()};
+
+        try {
+            Scanner scanner = new Scanner(new FileInputStream(srcFile));
+            algId = Integer.parseInt(scanner.nextLine());
             switch (algId) {
                 case 1:
                     searchAlgorithm = new IDS<>(operators, 100);
@@ -24,16 +34,18 @@ public class Main {
                     searchAlgorithm = new BFS<>(operators);
                     break;
                 case 3:
-                    HeuristicFunction<BoardState> heuristicFunction= new ManhattanDistanceHeuristic();
-                    searchAlgorithm= new AStar<>(operators, heuristicFunction);
+                    HeuristicFunction<BoardState> heuristicFunction = new ManhattanDistanceHeuristic();
+                    searchAlgorithm = new AStar<>(operators, heuristicFunction);
                     break;
 
-                    default:
-                        break;
-                // continue
+                default:
+                    System.out.println("Wrong algorithm input! Number must be 1-main.Algorithms.IDS,2-main.Algorithms.BFS or 3-A*.");
+                    System.exit(-1);
+                    break;
             }
+
+            // Set initial & goal board state.
             n = Integer.parseInt(scanner.nextLine());
-            System.out.println(n);
             scanner.useDelimiter("-");
             int[][] initBoard = new int[n][n];
             int[][] goalBoard = new int[n][n];
@@ -49,18 +61,21 @@ public class Main {
                 }
             }
             goalBoard[n - 1][n - 1] = 0;
+
             Node<BoardState> init = new Node<>(new BoardState(initBoard, emptyRowIdx, emptyColidx), null, null);
             Node<BoardState> goal = new Node<>(new BoardState(goalBoard, n - 1, n - 1), null, null);
-            init.printNode();
-            goal.printNode();
-            long start = System.nanoTime();
-            if (searchAlgorithm != null)
-                System.out.println(searchAlgorithm.search(init, goal));
-            else
-                System.out.println("Wrong input!");
-            System.out.println(System.nanoTime() - start);
-        } catch (
-                FileNotFoundException e) {
+
+            String solution = searchAlgorithm.search(init, goal);
+
+            try {
+                PrintWriter writer = new PrintWriter(destFile);
+                writer.println(solution);
+                writer.close();
+                System.out.println(String.format("The solution is in file %s", destFile));
+            } catch (IOException e) {
+                System.out.println(String.format("Failed to open file. The solution is: %s", solution));
+            }
+        } catch (FileNotFoundException e) {
             System.out.println("File not found. Please try again.");
         }
     }

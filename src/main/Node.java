@@ -1,3 +1,8 @@
+package main;
+
+import main.Operators.Operator;
+import main.State.State;
+
 public class Node<T extends State> {
     private Node<T> parent;
     private T state;
@@ -26,20 +31,12 @@ public class Node<T extends State> {
         return operator;
     }
 
-    public void setOperator(Operator<T> operator) {
-        this.operator = operator;
-    }
-
     public T getState() {
         return state;
     }
 
     public Node<T> getParent() {
         return parent;
-    }
-
-    public void setParent(Node<T> parent) {
-        this.parent = parent;
     }
 
     public void setState(T state) {
@@ -57,7 +54,9 @@ public class Node<T extends State> {
         this.state.printState();
     }
 
-    //compare two nodes with their
+    /*
+     * Compare two nodes by their states.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
