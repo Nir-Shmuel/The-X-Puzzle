@@ -1,4 +1,4 @@
-package main.State;
+package main.States;
 
 public interface State {
     State copyState();

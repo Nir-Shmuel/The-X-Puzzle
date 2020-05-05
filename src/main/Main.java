@@ -2,7 +2,7 @@ package main;
 
 import main.Algorithms.*;
 import main.Operators.*;
-import main.State.BoardState;
+import main.States.BoardState;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

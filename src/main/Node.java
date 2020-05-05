@@ -1,7 +1,7 @@
 package main;
 
 import main.Operators.Operator;
-import main.State.State;
+import main.States.State;
 
 public class Node<T extends State> {
     private Node<T> parent;

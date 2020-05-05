@@ -2,7 +2,7 @@ package main.Algorithms;
 
 import main.Node;
 import main.Operators.Operator;
-import main.State.State;
+import main.States.State;
 
 import java.util.HashSet;
 import java.util.Set;

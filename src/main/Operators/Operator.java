@@ -1,6 +1,6 @@
 package main.Operators;
 
-import main.State.State;
+import main.States.State;
 
 public interface Operator<T extends State> {
     T createNextState(T state) throws RuntimeException;

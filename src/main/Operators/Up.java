@@ -1,6 +1,6 @@
 package main.Operators;
 
-import main.State.BoardState;
+import main.States.BoardState;
 
 public class Up extends BoardOperator {
 

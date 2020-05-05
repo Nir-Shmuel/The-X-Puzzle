@@ -1,6 +1,6 @@
 package main.Algorithms;
 
-import main.State.BoardState;
+import main.States.BoardState;
 
 import java.util.HashMap;
 import java.util.Map;

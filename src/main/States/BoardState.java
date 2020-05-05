@@ -1,4 +1,4 @@
-package main.State;
+package main.States;
 
 import java.util.Arrays;
 
