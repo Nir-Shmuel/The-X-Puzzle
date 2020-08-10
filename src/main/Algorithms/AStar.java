@@ -27,11 +27,7 @@ public class AStar<T extends State> extends SearchAlgorithm<T> {
             if (createdState != null) {
                 Node<T> newNode = new Node<>(createdState, this.operators[i], node, node.getDepth() + 1);
                 if (open.contains(newNode)) {
-                    open.forEach((element) -> {
-                        if (element.equals(newNode) && element.getDepth() > newNode.getDepth()) {
-                            open.remove(element);
-                        }
-                    });
+                    open.removeIf(element -> element.equals(newNode) && element.getDepth() > newNode.getDepth());
                 }
                 this.open.add(newNode);
             }
